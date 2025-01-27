@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Markdown Editor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- Correcting script order: Load marked first; PROBLEM: Browser console says marked is not defined -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.1.0/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <textarea id="markdown-input" placeholder="Type your markdown here..."># Hello!</textarea>
+        <div id="markdown-preview"></div>
+    </div>
+    
+    <button id="download-btn">
+        <img src="{{ url_for('static', filename='download-icon.png') }}" alt="Download">
+    </button>
+
+    <script>
+        const input = document.getElementById('markdown-input');
+        const preview = document.getElementById('markdown-preview');
+
+        // Live update preview
+        input.addEventListener('input', () => {
+            console.log('Input value:', input.value); // Debugging input value
+            if (typeof marked !== 'undefined') {
+                preview.innerHTML = marked.parse(input.value); // Corrected syntax for version 4.x
+                console.log('Preview HTML:', preview.innerHTML); // Debugging preview HTML
+            } else {
+                console.error('Marked is not defined');
+            }
+        });
+
+        // Initial rendering
+        if (typeof marked !== 'undefined') {
+            preview.innerHTML = marked.parse(input.value); // Corrected syntax for version 4.x
+            console.log('Initial Preview HTML:', preview.innerHTML); // Debugging initial preview
+        } else {
+            console.error('Marked is not defined');
+        }
+
+        // Download as .md file
+        document.getElementById('download-btn').addEventListener('click', () => {
+            const markdownContent = input.value;
+            const blob = new Blob([markdownContent], { type: 'text/markdown' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'markdown_file.md';
+            link.click();
+        });
+    </script>
+</body>
+</html>
+
