@@ -1,0 +1,9 @@
+# Ignore the .git directory (this should already be ignored by default)
+.git/
+
+# Ignore the __pycache__ directory
+__pycache__/
+
+# Ignore the venv directory
+venv/
+
