@@ -15,3 +15,4 @@ This Web Markdown Editor uses Flask, HTML, CSS, and some cheeky javascript to re
 2. Create a VENV by using "python3 -m venv venv".
 3. Now install requirements with "pip install -r requirements.txt" while in the main directory of the project.
 4. Now try "flask run" in your console, and enjoy the output.
+5. Keep in mind that you will have to go to http://127.0.0.1:5000/ to see and use the Editor!
